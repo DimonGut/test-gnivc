@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.head {
+
+}
+
+.form {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.radio_group {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.button {
+    align-self: center;
+}
