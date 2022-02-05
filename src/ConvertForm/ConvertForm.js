@@ -1,55 +1,60 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './ConvertForm.module.css';
+import {toCase} from "../services/toCase";
 
 export const ConvertForm = () => {
-    const [form, setForm] = useState({noun: '', cases: ''});
+    const [form, setForm] = useState({noun: '', cases: '', result: ''});
 
     const onChangeForm = (e) => {
         setForm({...form, [e.currentTarget.name]: e.currentTarget.value});
+        console.log(form);
     }
 
-    const testRegExp = (e) => {
+    const convertNoun = (e) => {
         e.preventDefault();
-        let reg1 = /^[а-я]+[^аяь]$/iu;
-        let text = reg1.test(String(form.noun));
-        console.log(text);
+        if(form.noun === '' || form.cases === '') {
+            setForm({...form, result: 'Пожалуйста, укажите слово и падеж!'});
+        } else {
+            const newText = toCase(form.noun, form.cases);
+            setForm({...form, result: newText});
+        }
     }
-
-    useEffect(() => {
-        // let reg1 = /^[а-я]+[ая]{1}$/iu;
-        // let text = reg1.test(String(form.noun));
-        // console.log(text);
-    },[form]);
 
     return (
         <div className={styles.wrapper}>
             <h1 className={styles.head}>Мини-приложение для склонения слов по падежам</h1>
             <form className={styles.form}>
-                <label htmlFor="noun">Поле ввода существительного в именительном падеже:</label>
-                <input onChange={onChangeForm} id="noun" name="noun" type="text" autoFocus placeholder="Введите существительное..."/>
+                <input className={styles.input_noun} onChange={onChangeForm} id="noun" name="noun" type="text"
+                       autoFocus placeholder="Введите существительное в ед. числе..."/>
+                <p>Результат: <span className={styles.result}>{form.result}</span></p>
                 <div className={styles.radio_group}>
                     <label>
-                        <input onClick={onChangeForm} id="rCase" name="cases" type="radio" value="rCase"/>
+                        <input className={styles.radio} onClick={onChangeForm} id="rCase" name="cases" type="radio"
+                               value="rCase"/>
                         Родительный падеж
                     </label>
                     <label>
-                        <input onClick={onChangeForm} id="dCase" name="cases" type="radio" value="dCase"/>
+                        <input className={styles.radio} onClick={onChangeForm} id="dCase" name="cases" type="radio"
+                               value="dCase"/>
                         Дательный падеж
                     </label>
                     <label>
-                        <input onClick={onChangeForm} id="vCase" name="cases" type="radio" value="vCase"/>
+                        <input className={styles.radio} onClick={onChangeForm} id="vCase" name="cases" type="radio"
+                               value="vCase"/>
                         Винительный падеж
                     </label>
                     <label>
-                        <input onClick={onChangeForm} id="tCase" name="cases" type="radio" value="tCase"/>
+                        <input className={styles.radio} onClick={onChangeForm} id="tCase" name="cases" type="radio"
+                               value="tCase"/>
                         Творительный падеж
                     </label>
                     <label>
-                        <input onClick={onChangeForm} id="pCase" name="cases" type="radio" value="pCase"/>
+                        <input className={styles.radio} onClick={onChangeForm} id="pCase" name="cases" type="radio"
+                               value="pCase"/>
                         Предложный падеж
                     </label>
                 </div>
-                <button onClick={testRegExp} className={styles.button}>Преобразовать</button>
+                <button onClick={convertNoun} className={styles.button}>Склонять</button>
             </form>
         </div>
     );
