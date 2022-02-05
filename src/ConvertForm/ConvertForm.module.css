@@ -44,20 +44,6 @@
     line-height: 24px;
     padding: 8px 20px;
     margin-top: 20px;
-    outline: none;
-    background-color: #259bf5;
-    color: #ffffff;
-    border-radius: 3px;
-    border: 1px solid #259bf5;
-    box-sizing: border-box;
-}
-
-.button:hover {
-    border: 1px solid #114e7c;
-}
-
-.button:active {
-    border: 2px solid #114e7c;
 }
 
 .result {
